@@ -1,0 +1,25 @@
+stages:
+  - testing
+  - deploying
+ # - deploying
+build:
+  stage: testing
+  script:
+    - echo " Hello World "
+    - flutter build apk
+  artifacts:
+    paths:
+      - "**/**/**/**/**/**/*.apk" 
+    expire_in: 1 week
+  tags:
+    - start
+after_build:
+  stage: deploying
+  script:    
+      # Sync to FTP
+    - echo " Hello World "
+    - flutter run -d web-server --web-hostname 192.168.1.202 --web-port 1235
+  tags: 
+  - build
+
+
